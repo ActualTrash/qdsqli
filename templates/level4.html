@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Problem 4 </title>
+    <style>
+      body {
+        font-family: Calibri, Helvetica, sans-serif;
+        background-color: #ecedea;
+      }
+
+      button {
+        background-color: #4CAF50;
+        width: 100%;
+        color: #d1f3fe;
+        padding: 15px;
+        margin: 10px 0px;
+        border: none;
+        cursor: pointer;
+      }
+
+      form {
+        border: 3px solid #f1f1f1;
+      }
+
+      table, th, td {
+          border: 1px solid;
+          border-collapse: collapse;
+          text-align: center;
+      }
+
+      table {
+          width: 100%;
+      }
+
+      th, td {
+          padding: 5px;
+      }
+
+      input[type=text],
+      input[type=password] {
+        width: 100%;
+        margin: 8px 0;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 2px solid green;
+        box-sizing: border-box;
+      }
+
+      button:hover {
+        opacity: 0.7;
+      }
+
+      .container {
+        padding: 25px;
+        background-color: lightblue;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <center>
+      <h1> SQL Injection 4 </h1>
+      <p><em>Hint: There is another database named classes. Submit your answer in the second form.</em></p>
+    </center>
+    <form method='POST'>
+      <div class="container">
+        <label>Search for courses by teacher name:</label>
+        <input type="text" placeholder="John Doe" name="search">
+        <input type="hidden" name="formtype" value="search">
+        <button type="Submit">Search</button>
+      </div>
+    </form>
+    <h3>
+      Search results
+    </h3>
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Teacher</th>
+            <th>Room #</th>
+            <th>Number of Students</th>
+        </tr>
+        {% for row in resp %}
+            <tr>
+            {% for c in row %}
+                <td>{{c}}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    <hr style="margin-top:100px">
+    <form id="submitphone" style="width:50%; margin:auto" method='POST', action='/level4#submitphone'>
+      <div class="container">
+          <label>Find the history teacher's phone number to complete this level. <em>This form is not injectable and should only be used to submit your answer.</em></label>
+        <p style="color:red">{{ error }}</p>
+        <input type="text" placeholder="Enter phone number" name="phone" required>
+        <input type="hidden" name="formtype" value="phonesubmit">
+        <button type="Submit">Submit</button>
+      </div>
+    </form>
+  </body>
+
+</html>
