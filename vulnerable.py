@@ -5,6 +5,7 @@
 from flask import Flask, request, render_template, redirect
 import sqlite3
 import hashlib
+import re
 
 app = Flask(__name__)
 
@@ -123,7 +124,8 @@ def level2():
         cur = con.cursor()
         username = request.form['username']
         password = hashlib.sha256(request.form['password'].encode()).hexdigest()
-        query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}';".replace('OR', '')
+        query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}';"
+        query = re.sub('OR', '', query, flags=re.IGNORECASE)  # remove 'OR' from query
         try:
             resp = cur.execute(query).fetchall()
         except:
